@@ -3,7 +3,7 @@
     "description": "jbabel: an i18n jQuery extension that allow you to easly and friendly translate and localize your application",
     "homepage": "https://github.com/felipeplets/meteor-jbabel-pkg",
     "author": "Felipe Plets <fsplets@gmail.com> (http://www.plets.com.br)",
-    "version": "0.0.2",
+    "version": "0.0.2-2",
     "git": "https://github.com/felipeplets/meteor-jbabel-pkg.git",
     "packages": {
     }

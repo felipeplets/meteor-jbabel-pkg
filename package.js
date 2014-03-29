@@ -8,8 +8,8 @@ Package.on_use(function (api, where) {
   api.add_files('jbabel.js', 'client');
 });
 
-Package.on_test(function (api) {
-  api.use(['jquery', 'jbabel', 'tinytest']);
+// Package.on_test(function (api) {
+//   api.use(['jquery', 'jbabel', 'tinytest']);
 
-  api.add_files('jbabel_tests.js', 'client');
-});
+//   api.add_files('jbabel_tests.js', 'client');
+// });
