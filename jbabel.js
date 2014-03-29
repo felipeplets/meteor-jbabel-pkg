@@ -1,94 +1,10 @@
 /*
- * jbabel JavaScript Translation Library v0.0.2
+ * jbabel JavaScript Translation Library v0.0.5
  * http://plets.com.br/jbabel/
  *
- * Copyright (c) 2013 Felipe Plets
+ * Copyright (c) 2014 Felipe Plets
  *
- * Date: 2013-06-06 10:09:00 GMT-0300
- * Revision: 2
+ * Date: 2014-03-29 8:20:00 GMT-0300
+ * Revision: 5
  */
-
-var jbabel = {
-	// Default language is english
-	DefaultLanguage: 'en',
-	// Add XML and ASP.NET RESOURCE
-  	ResourceType: 'json',
-	// Resource path, default is the same from the HTML file
-  	ResourcePath: 'resource/',
-	// Array of lib objects that contain terms to translate
-  	Objs: [],
-	// Array of language resources
-  	ResourceList: [],
-	// Array of current language resources
-  	CurrentTranslation: [],
-	// Library used on this app
-  	Library: 'jQuery',
-	
-	// Function that load ResourceList to objects
-	Load: function (PsLang){
-		// If don't have PsLang than set default language.
-		if (!PsLang)
-			PsLang = jbabel.DefaultLanguage;
-		// If language lib is not loaded than load it
-		if (typeof jbabel.ResourceList[PsLang] == 'undefined'){
-			jbabel.LoadResourceLib(PsLang);
-		} else { // If language lib is loaded than just translate all terms
-		  	// Get library that will be used into translation
-			jbabel.CurrentTranslation = jbabel.ResourceList[PsLang];
-			jbabel.TranslateAll();
-		}
-	},
-	
-	// Load resource library
-	LoadResourceLib: function(PsLang){
-		// Get head element
-		var head = document.getElementsByTagName('head')[0];
-		// Create an Script element
-		var oScript = document.createElement('script');
-		oScript.type= 'text/javascript';
-		// Set the ResourcePath + file name
-		oScript.src = jbabel.ResourcePath + 'jbabel.' + PsLang + '.js?' + new Date().getTime();
-		head.appendChild(oScript);
-	}, 
-
-	GetTranslation: function(PsResourceID){
-		return jbabel.CurrentTranslation[PsResourceID];
-	},
-
-	Translate: function(PoObject, PsResourceID, PsAttribute){
-		// String translated
-	  	var sTranslation = jbabel.GetTranslation(PsResourceID);
-		// do the translation
-		if (PsAttribute) {
-			PoObject.attr(PsAttribute, sTranslation);
-		} else {
-			PoObject.html(sTranslation);
-		}
-	},
-
-	TranslateAll: function(){
-		// Pass throught all objects setting the translation into it
-		for (var i = 0; i < jbabel.Objs.length; i++) {
-			// Get object to be translated 
-			var oObject      = jbabel.Objs[i];
-			// Call the translation for each object
-			jbabel.Translate(oObject[0], oObject[1], oObject[2]);
-		}	
-	}
-};
-
-// jQUery extension that sets the translation resource ID to each object
-(function($) { 
-  $.fn.Translate = function(PsResourceID, PsAttribute) {
-	jbabel.Objs.push([this, PsResourceID, PsAttribute]);
-	jbabel.Translate(this, PsResourceID, PsAttribute);
-	return this;
-  };
-})(jQuery);
-
-// Load the default language 
-jbabel.Load();
-
-// Glossary
-// Translation Resource ID
-// Translation Resource
+(function(a){a.jbabel={DefaultLanguage:"en",ResourceType:"json",ResourcePath:"i18n",ResourceFile:"i18n",Objs:[],ResourceList:[],CurrentTranslation:[],Library:"jQuery",Load:function(b){if(!b||typeof b==="function"){b=this.DefaultLanguage}if(typeof this.ResourceList[b]=="undefined"){this.LoadResourceLib(b)}this.CurrentTranslation=this.ResourceList[b];this.TranslateAll()},InitLanguageSwitcher:function(){a("[data-i18n-switcher]").click(function(){a.jbabel.Load(a(this).attr("data-i18n-switcher"))})},LoadResourceLib:function(b){a.jbabel.ResourceList[b]=(function(){var c=null;a.ajax({async:false,global:false,crossDomain:true,url:a.jbabel.ResourcePath+"/"+a.jbabel.ResourceFile+"."+b+"."+a.jbabel.ResourceType+"?"+new Date().getTime(),dataType:"json",success:function(d){c=d}});return c})()},GetTranslation:function(b){return this.CurrentTranslation[b]},Translate:function(e,b,d){var c=this.GetTranslation(b);if(d){e.attr(d,c)}else{e.html(c)}},TranslateAll:function(){var c={};for(var b=0;b<this.Objs.length;b++){c=this.Objs[b];a.jbabel.Translate(c[0],c[1],c[2])}a("[data-i18n]").each(function(){a.jbabel.Translate(a(this),a(this).attr("data-i18n"))})}};a.fn.Translate=function(b,c){a.jbabel.Objs.push([this,b,c]);a.jbabel.Translate(this,b,c);return this};a(document).ready(a.proxy(a.jbabel.Load,a.jbabel));a(document).ready(a.proxy(a.jbabel.InitLanguageSwitcher,a.jbabel))})(jQuery);
